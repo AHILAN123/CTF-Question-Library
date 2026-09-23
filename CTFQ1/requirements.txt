@@ -1,0 +1,3 @@
+# Runtime deps. aeslib/circuitlib/nc_server/generate_circuits use only the
+# Python standard library. The reference solver's Part 2/3 ELF handling needs:
+pyelftools>=0.29

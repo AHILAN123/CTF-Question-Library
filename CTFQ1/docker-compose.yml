@@ -1,0 +1,22 @@
+# `docker compose up --build`            -> starts the Part 1 oracle on :31337
+# `docker compose run --rm solver`       -> runs the reference solver end-to-end
+services:
+  ctf-q1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    ports:
+      - "31337:31337"
+
+  solver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    profiles: ["solve"]
+    depends_on:
+      - ctf-q1
+    command: >
+      python3 reference_solver.py --host ctf-q1 --port 31337
+      --challenge-dir /ctf/dist --workdir /tmp/solve
